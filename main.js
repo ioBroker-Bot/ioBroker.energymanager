@@ -23,14 +23,20 @@ function startAdapter(options) {
         name: 'energymanager',
         stateChange: function (id, state) {
             let command = id.split('.').pop();
-            
+
             // you can use the ack flag to detect if it is status (true) or command (false)
-            if (!state || state.ack) return;
-            
+            if (!state || state.ack) {
+                return;
+            }
+
             if (command == 'managerReboot') {
                 adapter.log.info('energymanager rebooting');
-                if (managerIntervall) clearInterval(managerIntervall);
-                if (hardwareTimeout) clearTimeout(hardwareTimeout);
+                if (managerIntervall) {
+                    clearInterval(managerIntervall);
+                }
+                if (hardwareTimeout) {
+                    clearTimeout(hardwareTimeout);
+                }
                 rebootManager();
                 //wait 5 minutes for hardware-reboot
                 hardwareTimeout = setTimeout(main, 300000);
@@ -38,11 +44,15 @@ function startAdapter(options) {
         },
         unload: function (callback) {
             try {
-                if (managerIntervall) clearInterval(managerIntervall);
-                if (hardwareTimeout) clearTimeout(timer);
+                if (managerIntervall) {
+                    clearInterval(managerIntervall);
+                }
+                if (hardwareTimeout) {
+                    clearTimeout(hardwareTimeout);
+                }
                 adapter.log.info('cleaned everything up...');
                 callback();
-            } catch (e) {
+            } catch {
                 callback();
             }
         },
@@ -53,64 +63,66 @@ function startAdapter(options) {
                     return;
                 } else if (obj) {
                     if (!obj.common.language) {
-                        adapter.log.info("Language not set. English set therefore.");
-                        nameTranslation = require(__dirname + '/lang/i18n/en/translations.json')
+                        adapter.log.info('Language not set. English set therefore.');
+                        nameTranslation = require(`${__dirname}/lang/i18n/en/translations.json`);
                     } else {
                         systemLanguage = obj.common.language;
-                        nameTranslation = require(__dirname + '/lang/i18n/' + systemLanguage + '/translations.json')
+                        nameTranslation = require(`${__dirname}/lang/i18n/${systemLanguage}/translations.json`);
                     }
-                    url = "http://" + adapter.config.managerAddress + "/rest";
+                    url = `http://${adapter.config.managerAddress}/rest`;
                     main();
                 }
             });
-        }
+        },
     });
     adapter = new utils.Adapter(options);
-    
-    return adapter;
-};
 
-function rebootManager(){
-    request({
-        method: 'POST',
-        jar: c,
-        uri: url+"/login",
-        body: JSON.stringify({password: adapter.config.managerPassword})
-        }, function (error, response, body) {
-            request({jar: c,uri: url+"/reboot",method: 'POST'
-            })
-    })
+    return adapter;
+}
+
+function rebootManager() {
+    request(
+        {
+            method: 'POST',
+            jar: c,
+            uri: `${url}/login`,
+            body: JSON.stringify({ password: adapter.config.managerPassword }),
+        },
+        function (_error, _response, _body) {
+            request({ jar: c, uri: `${url}/reboot`, method: 'POST' });
+        },
+    );
 }
 
 function translateName(strName) {
-    if(nameTranslation[strName]) {
+    if (nameTranslation[strName]) {
         return nameTranslation[strName];
-    } else {
-        return strName;
     }
+    return strName;
 }
 
-function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValue) {
-    adapter.log.debug("strGroup: "+strGroup);
-    let updatedState
+function updateState(strGroup, valTag, valTagLang, valType, valUnit, valRole, valValue) {
+    adapter.log.debug(`strGroup: ${strGroup}`);
+    let updatedState;
     switch (adapter.config.managerStateExpireTimeout) {
-        case "-1":
+        case '-1':
             // states do not expire
-            updatedState = {val: valValue, ack: true};
+            updatedState = { val: valValue, ack: true };
             break;
-        case "": 
+        case '':
             // no config value provided (default)
             // state expires if adapter can't pull it from hardware
-            updatedState = {val: valValue, ack: true, expire: adapter.config.managerIntervall * 2};
+            updatedState = { val: valValue, ack: true, expire: adapter.config.managerIntervall * 2 };
             break;
-        default: 
+        default:
             // value was provided in the config
             // state expires if adapter can't pull it from hardware
-            updatedState = {val: valValue, ack: true, expire: parseInt(adapter.config.managerStateExpireTimeout)};
+            updatedState = { val: valValue, ack: true, expire: parseInt(adapter.config.managerStateExpireTimeout) };
     }
 
     adapter.setObjectNotExists(
-        strGroup + "." + valTag, {
+        `${strGroup}.${valTag}`,
+        {
             type: 'state',
             common: {
                 name: valTagLang,
@@ -118,89 +130,84 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
                 read: true,
                 write: false,
                 unit: valUnit,
-                role: valRole
+                role: valRole,
             },
-            native: {}
-        }, function() {
-            adapter.setState(
-                strGroup + "." + valTag,
-                updatedState
-            )
-        }
+            native: {},
+        },
+        function () {
+            adapter.setState(`${strGroup}.${valTag}`, updatedState);
+        },
     );
 }
 
 function getManagerValues() {
     request(
         {
-            url: "http://" + adapter.config.managerAddress + "/rest/kiwigrid/wizard/devices",
-            json: true
+            url: `http://${adapter.config.managerAddress}/rest/kiwigrid/wizard/devices`,
+            json: true,
         },
-        function(error, response, content) {
-
+        function (error, response, content) {
             if (!error && response.statusCode == 200) {
-                
                 for (let i in content.result.items) {
-
                     for (let j in content.result.items[i].tagValues) {
-                        
                         let valValue = content.result.items[i].tagValues[j].value;
                         valTagLang = translateName(content.result.items[i].tagValues[j].tagName);
                         let valType = typeof valValue;
                         let valTag = content.result.items[i].tagValues[j].tagName;
                         let strGroup;
                         let valUnit;
-                        
+
+                        let valRole = 'state';
                         switch (valType) {
-                            case "boolean":
-                                var valRole = 'indicator.working';
+                            case 'boolean':
+                                valRole = 'indicator.working';
                                 break;
-                            
-                            case "number":
-                                if (valTag.search('Date') > -1){
-                                    var valRole = 'value.time';
+
+                            case 'number':
+                                if (valTag.search('Date') > -1) {
+                                    valRole = 'value.time';
                                     valValue = new Date(valValue);
                                     valValue = valValue.getTime();
                                     break;
                                 }
-                                
-                                if (valTag.search('StateOfCharge') == 0){
-                                    var valRole = 'value.battery';
+
+                                if (valTag.search('StateOfCharge') == 0) {
+                                    valRole = 'value.battery';
                                     break;
                                 }
-                                if (valTag.search('PowerConsum') == 0 || valTag.search('Work') == 0){
-                                    var valRole = 'value.power.consumption';
+                                if (valTag.search('PowerConsum') == 0 || valTag.search('Work') == 0) {
+                                    valRole = 'value.power.consumption';
                                     break;
                                 }
-                                if (valTag.search('Temperature') == 0){
-                                    var valRole = 'value.temperature';
+                                if (valTag.search('Temperature') == 0) {
+                                    valRole = 'value.temperature';
                                     break;
                                 }
-                                if (valTag.search('Min') > -1 && valTag.search('Minute') == -1){
-                                    var valRole = 'value.min';
+                                if (valTag.search('Min') > -1 && valTag.search('Minute') == -1) {
+                                    valRole = 'value.min';
                                     break;
                                 }
-                                if (valTag.search('Max') > -1){
-                                    var valRole = 'value.max';
+                                if (valTag.search('Max') > -1) {
+                                    valRole = 'value.max';
                                     break;
                                 }
-                                var valRole = 'value';
+                                valRole = 'value';
                                 break;
-                            
-                            case "string":
-                                var valRole = 'text';
+
+                            case 'string':
+                                valRole = 'text';
                                 break;
 
                             default:
-                                var valRole = 'state';
+                                valRole = 'state';
                                 break;
                         }
 
-                        if (valTag.search('Work') == 0){
-                            if (adapter.config.managerRounding == "no") {
+                        if (valTag.search('Work') == 0) {
+                            if (adapter.config.managerRounding == 'no') {
                                 valUnit = 'Wh';
                             } else {
-                                valValue = valValue/1000; 
+                                valValue = valValue / 1000;
                                 valUnit = 'kWh';
                             }
                         } else if (valTag.search('Temperature') == 0) {
@@ -209,53 +216,58 @@ function getManagerValues() {
                             valUnit = 'ct/kWh';
                         } else if (valTag.search('Degree') == 0) {
                             valUnit = '°';
-                        } else if (valTag.search('Voltage') == 0) { 
+                        } else if (valTag.search('Voltage') == 0) {
                             valUnit = 'V';
-                        } else if (valTag.search('StateOf') == 0) { 
+                        } else if (valTag.search('StateOf') == 0) {
                             valUnit = '%';
-                        } else if (valTag.search('Resistance') == 0) { 
+                        } else if (valTag.search('Resistance') == 0) {
                             valUnit = 'Ohm';
-                        } else if (valTag.search('Power') == 0) { 
-                            if (adapter.config.managerRounding == "no") {
+                        } else if (valTag.search('Power') == 0) {
+                            if (adapter.config.managerRounding == 'no') {
                                 valUnit = 'W';
                             } else {
-                                valValue = valValue/1000;    
+                                valValue = valValue / 1000;
                                 valUnit = 'kW';
-                            } 
+                            }
                         } else {
                             valUnit = '';
                         }
 
-                        if (valType == "number" && valTag.search('Date') == -1) {
+                        if (valType == 'number' && valTag.search('Date') == -1) {
                             valValue = Math.round(valValue * 100) / 100;
                         }
                         if (valValue != null && content.result.items[i].tagValues.IdName.value != null) {
-                            let IDNameClear = content.result.items[i].tagValues.IdName.value
-                                IDNameClear = IDNameClear
-                                    .replace(/[ ]+/g,"_")
-                                    .replace(/[\.]+/g,"")
-                                    .replace(/[\u00df]+/,"SS");
-                            if(content.result.items[i].deviceModel[1] !== undefined) {
-                                switch(content.result.items[i].deviceModel[1].deviceClass) {
-                                    case "com.kiwigrid.devices.inverter.Inverter":
-                                    case "com.kiwigrid.devices.powermeter.PowerMeter":
-                                        strGroup=translateName(content.result.items[i].deviceModel[2].deviceClass.split(".").pop()) + "_(" + IDNameClear + ")";
-                                    break;
-    
-                                    case "com.kiwigrid.devices.location.Location":
-                                    case "com.kiwigrid.devices.pvplant.PVPlant":
-                                        strGroup=translateName(content.result.items[i].deviceModel[1].deviceClass.split(".").pop()) + "_(" + IDNameClear + ")";
+                            let IDNameClear = content.result.items[i].tagValues.IdName.value;
+                            IDNameClear = IDNameClear.replace(/[ ]+/g, '_')
+                                .replace(/[.]+/g, '')
+                                .replace(/[\u00df]+/, 'SS');
+                            if (content.result.items[i].deviceModel[1] !== undefined) {
+                                switch (content.result.items[i].deviceModel[1].deviceClass) {
+                                    case 'com.kiwigrid.devices.inverter.Inverter':
+                                    case 'com.kiwigrid.devices.powermeter.PowerMeter':
+                                        strGroup = `${translateName(
+                                            content.result.items[i].deviceModel[2].deviceClass.split('.').pop(),
+                                        )}_(${IDNameClear})`;
                                         break;
-                    
+
+                                    case 'com.kiwigrid.devices.location.Location':
+                                    case 'com.kiwigrid.devices.pvplant.PVPlant':
+                                        strGroup = `${translateName(
+                                            content.result.items[i].deviceModel[1].deviceClass.split('.').pop(),
+                                        )}_(${IDNameClear})`;
+                                        break;
+
                                     default:
-                                        strGroup=translateName(content.result.items[i].deviceModel[1].deviceClass.split(".").pop());
-                                    break;
+                                        strGroup = translateName(
+                                            content.result.items[i].deviceModel[1].deviceClass.split('.').pop(),
+                                        );
+                                        break;
                                 }
                             }
                         }
 
                         if (valValue != null && valType != 'object' && strGroup != '' && strGroup != undefined) {
-                            updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValue);
+                            updateState(strGroup, valTag, valTagLang, valType, valUnit, valRole, valValue);
                         } /*else if (valValue != null && valType == 'object' && valTag == 'WeatherForecast') {
 
                             for (var location in valValue) {
@@ -273,37 +285,36 @@ function getManagerValues() {
                                   }
                                 }
                             }
-                        }*/ 
+                        }*/
                     }
                 }
-
             } else {
                 adapter.log.error(error);
             }
-        }
-
-    )
+        },
+    );
 }
 
 function main() {
     //Button for hardware reboot.
     adapter.setObjectNotExists(
-        "managerReboot", {
+        'managerReboot',
+        {
             type: 'state',
             common: {
-                name: translateName("managerReboot"),
+                name: translateName('managerReboot'),
                 type: 'boolean',
                 role: 'button',
                 read: true,
-                write: true
+                write: true,
             },
-            native: {}
+            native: {},
         },
-        () => adapter.subscribeStates('managerReboot')
+        () => adapter.subscribeStates('managerReboot'),
     );
 
     getManagerValues();
-    managerIntervall = setInterval(getManagerValues, (adapter.config.managerIntervall * 1000));
+    managerIntervall = setInterval(getManagerValues, adapter.config.managerIntervall * 1000);
 }
 
 // If started as allInOne/compact mode => return function to create instance
@@ -312,4 +323,4 @@ if (module && module.parent) {
 } else {
     // or start the instance directly
     startAdapter();
-} 
+}
