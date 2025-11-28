@@ -1,164 +1,182 @@
 {
-    "common": {
-        "name": "energymanager",
-        "version": "1.4.2",
-        "news": {
-            "1.4.2": {
-                "en": "security- and compatibilityupdate",
-                "de": "Sicherheits- und Kompatibilitätsupdate",
-                "ru": "безопасность и совместимость",
-                "pt": "segurança e compatibilidadeupdate",
-                "nl": "beveiliging en compatibiliteit",
-                "fr": "sécurité et compatibilité",
-                "it": "sicurezza e compatibilitàaggiornamento",
-                "es": "seguridad y compatibilidad",
-                "pl": "ubezpieczenie i kompatybilność",
-                "uk": "безпека та сумісність",
-                "zh-cn": "安全和兼容性"
-              },
-            "1.4.1": {
-                "en": "clear version number",
-                "de": "Anpassung Versionsnummer",
-                "ru": "номер ясной версии",
-                "pt": "número de versão clara",
-                "nl": "duidelijke versie",
-                "fr": "numéro de version",
-                "it": "chiaro numero di versione",
-                "es": "versión clara",
-                "pl": "wersja",
-                "uk": "чистий номер версії",
-                "zh-cn": "明确版本"
-              },
-            "1.3.5": {
-                "en": "changed the year in readme and license",
-                "de": "Jahr in readme und lizenz angepasst",
-                "ru": "изменил год в readme и лицензии",
-                "pt": "mudou o ano em readme e licença",
-                "nl": "veranderde het jaar in de rij",
-                "fr": "changé l'année en lecture et licence",
-                "it": "cambiato l'anno in lettura e licenza",
-                "es": "cambió el año en readme y licencia",
-                "pl": "zmienił rok w czytaniu i na licencji",
-                "uk": "змінено рік у режимі зчитування та ліцензії",
-                "zh-cn": "读者年改为:"
-              },
-            "1.3.4": {
-                "en": "support for discovered but not installed devices",
-                "de": "Unterstützung für erkannte, aber nicht installierte Geräte",
-                "ru": "поддержка обнаруженных, но не установленных устройств",
-                "pt": "suporte para dispositivos descobertos, mas não instalados",
-                "nl": "ondersteuning voor ontdekte maar niet geïnstalleerd apparatuur",
-                "fr": "support pour les dispositifs découverts mais non installés",
-                "it": "supporto per dispositivi scoperti ma non installati",
-                "es": "soporte para dispositivos descubiertos pero no instalados",
-                "pl": "wsparcie dla odkrytych, ale nie zainstalowanych urządzeń",
-                "uk": "підтримка відкритих, але не встановлених пристроїв",
-                "zh-cn": "对发现但未安装装置的支助"
-              },
-            "1.3.3": {
-                "en": "bugfix",
-                "de": "Fehlerbehebung",
-                "ru": "багфикс",
-                "pt": "correção de erros",
-                "nl": "vuur",
-                "fr": "bugfix",
-                "it": "bugfix",
-                "es": "bugfix",
-                "pl": "trąbka",
-                "uk": "шемале",
-                "zh-cn": "b ugfix"
-              },
-            "1.3.2": {
-                "en": "ready for Admin 5 and NodeJS 16",
-                "de": "bereit für Admin 5 und NodeJS 16",
-                "ru": "готов к Admin 5 и NodeJS 16",
-                "pt": "pronto para Admin 5 e NodeJS 16",
-                "nl": "klaar voor Admin 5 en NodeJS 16",
-                "fr": "prêt pour Admin 5 et NodeJS 16",
-                "it": "pronto per Admin 5 e NodeJS 16",
-                "es": "listo para Admin 5 y NodeJS 16",
-                "pl": "admin 5 i NodeJS 16",
-                "uk": "готовий до Admin 5 і NodeJS 16",
-                "zh-cn": "准备为Admin 5和NodeJS 16"
-              }
-        },
-        "titleLang": {
-            "en": "energymanager",
-            "de": "energiemanager",
-            "ru": "энергоменеджер",
-            "pt": "energética",
-            "nl": "energiemanager",
-            "fr": "energymanager",
-            "it": "energiamanager",
-            "es": "energymanager",
-            "pl": "energeza",
-            "uk": "енергетика",
-            "zh-cn": "能源manager"
-          },
-        "desc": {
-            "en": "energymanager for kiwigrid-powered devices. confirmed for E.ON Aura and Solarwatt MyReserve",
-            "de": "Energymanager für Geräte die mit Kiwigrid Netzwerk laufen. Bestätogt für E.ON Aura Stromspeicher und Solarwatt MyReserve",
-            "ru": "энергоменеджер для кивигридных устройств. подтверждено для E.ON Aura и Solarwatt MyReserve",
-            "pt": "energymanager para dispositivos alimentados por kiwigrid. confirmado para E.ON Aura e Solarwatt MyReserve",
-            "nl": "energiemanager voor kiwigrid-krachtige apparaten. Aura en Solarwatt MyReserve",
-            "fr": "energymanager for kiwigrid-powered devices. confirmé pour E.ON Aura et Solarwatt MyReserve",
-            "it": "energymanager per i dispositivi kiwigrid-powered. confermato per E.ON Aura e Solarwatt MyReserve",
-            "es": "gestor de energía para dispositivos con potencia de kiwigrid. confirmado por E.ON Aura y Solarwatt MyReserve",
-            "pl": "energimanager dla urządzeń napędowych kiwigrid. Potwierdził E.ON Aura i Solarwat MyReserve",
-            "uk": "енергоменеджер для kiwigrid-powered пристроїв. підтверджено для E.ON Aura та Solarwatt MyReserve",
-            "zh-cn": "基维格压发电装置的能源manager。 已确认为E.ON Aura和太阳能保护公司"
-          },
-        "authors": [
-            "Michael Schuster <development@unltd-networx.de>",
-            "iobroker-community-adapters <iobroker-community-adapters@gmx.de>",
-            "mcm1957 <mcm57@gmx.at>"
-        ],
-        "docs": {
-            "en": "docs/en/admin.md",
-            "de": "doks/de/admin.md",
-            "ru": "docs/en/admin.md",
-            "pt": "docs/en/admin.md",
-            "nl": "docs/en/admin",
-            "fr": "docs/en/admin.md",
-            "it": "docs/en/admin.md",
-            "es": "docs/en/admin.md",
-            "pl": "docs/en/admin.md",
-            "uk": "docs/en/admin.md",
-            "zh-cn": "docs/en/admin.md"
-          },
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "icon": "energymanager.png",
-        "materialize": true,
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.energymanager/master/admin/energymanager.png",
-        "keywords": ["energymanager", "GUI", "EON Aura", "Solarwatt MyReserver"],
-        "readme": "https://github.com/iobroker-community-adapters/ioBroker.energymanager/blob/master/README.md",
-        "loglevel": "info",
-        "tier": 2,
-        "type": "energy",
-        "licenseInformation": {
-            "type": "free",
-            "license": "MIT"
-        },
-        "dependencies": [
-          {
-            "js-controller": ">=6.0.11"
-          }
-        ],
-        "globalDependencies": [
-          {
-            "admin": ">=7.6.17"
-          }
-        ],
-        "messagebox": false,
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll"
+  "common": {
+    "name": "energymanager",
+    "version": "2.0.0-alpha.0",
+    "news": {
+      "2.0.0-alpha.0": {
+        "en": "Adapter has been migrated to iobroker-community-adapters organisation\nAdapter requires node.js >= 20, js-controller >= 6.0.11 and admin >= 7.6.17 now\nDependencies have been updated",
+        "de": "Adapter wurde auf iobroker-community-Adapter Organisation migriert\nAdapter benötigt node.js >= 20, js-controller >= 6.0.11 und admin >= 7.6.17 jetzt\nAbhängigkeiten wurden aktualisiert",
+        "ru": "Адаптер был перенесен в организацию адаптации сообщества йоброкеров\nАдаптер требует node.js >= 20, js-контроллер >= 6.0.11 и админ >= 7.6.17 сейчас\nЗависимости были обновлены",
+        "pt": "Adaptador foi migrado para iobroker-community-adaptadores organização\nO adaptador necessita de nodo.js >= 20, js-controlador >= 6.0.11 e administrador >= 7.6.17 agora\nAs dependências foram atualizadas",
+        "nl": "Adapter is gemigreerd naar iobroker-community-adapters organisatie\nVoor adapters zijn node.js < 20, js-controller <= 6,0.11 en admin <= 7.6.17 nu vereist\nAfhankelijkheden zijn bijgewerkt",
+        "fr": "L'adaptateur a été transféré vers l'organisation iobroker-community-adapters\nAdapter nécessite node.js >= 20, js-controller >= 6.0.11 et admin >= 7.6.17 maintenant\nLes dépendances ont été actualisées",
+        "it": "L'adattatore è stato migrato all'organizzazione di hobroker-community-adapters\nAdattatore richiede node.js >= 20, js-controller >= 6.0.11 e admin >= 7.6.17 ora\nLe dipendenze sono state aggiornate",
+        "es": "Adaptador ha sido migrado a la organización de ibroker-community-adapters\nAdaptador requiere node.js ю= 20, js-controller √= 6.0.11 y admin= 7.6.17 ahora\nSe han actualizado las dependencias",
+        "pl": "Adapter został przeniesiony do organizacji adapterów społeczności iobrokerowej\nAdapter wymaga node.js > = 20, kontroler js- i admin > = 7.6.17\nZaktualizowano zależności",
+        "uk": "Перехідник мігрований до організації iobroker-community-adapters\nАдаптер вимагає node.js >= 20, js-controller >= 6.0.11 і admin >= 7.6.17 тепер\nЗалежність було оновлено",
+        "zh-cn": "适应者已迁移到职业经纪人-社区适应者组织\n适配器需要节点.js >= 20,js控制器 >= 6.0.11和admin >= 7.6.17 现在\n依赖关系已更新"
+      },
+      "1.4.2": {
+        "en": "security- and compatibilityupdate",
+        "de": "Sicherheits- und Kompatibilitätsupdate",
+        "ru": "безопасность и совместимость",
+        "pt": "segurança e compatibilidadeupdate",
+        "nl": "beveiliging en compatibiliteit",
+        "fr": "sécurité et compatibilité",
+        "it": "sicurezza e compatibilitàaggiornamento",
+        "es": "seguridad y compatibilidad",
+        "pl": "ubezpieczenie i kompatybilność",
+        "uk": "безпека та сумісність",
+        "zh-cn": "安全和兼容性"
+      },
+      "1.4.1": {
+        "en": "clear version number",
+        "de": "Anpassung Versionsnummer",
+        "ru": "номер ясной версии",
+        "pt": "número de versão clara",
+        "nl": "duidelijke versie",
+        "fr": "numéro de version",
+        "it": "chiaro numero di versione",
+        "es": "versión clara",
+        "pl": "wersja",
+        "uk": "чистий номер версії",
+        "zh-cn": "明确版本"
+      },
+      "1.3.5": {
+        "en": "changed the year in readme and license",
+        "de": "Jahr in readme und lizenz angepasst",
+        "ru": "изменил год в readme и лицензии",
+        "pt": "mudou o ano em readme e licença",
+        "nl": "veranderde het jaar in de rij",
+        "fr": "changé l'année en lecture et licence",
+        "it": "cambiato l'anno in lettura e licenza",
+        "es": "cambió el año en readme y licencia",
+        "pl": "zmienił rok w czytaniu i na licencji",
+        "uk": "змінено рік у режимі зчитування та ліцензії",
+        "zh-cn": "读者年改为:"
+      },
+      "1.3.4": {
+        "en": "support for discovered but not installed devices",
+        "de": "Unterstützung für erkannte, aber nicht installierte Geräte",
+        "ru": "поддержка обнаруженных, но не установленных устройств",
+        "pt": "suporte para dispositivos descobertos, mas não instalados",
+        "nl": "ondersteuning voor ontdekte maar niet geïnstalleerd apparatuur",
+        "fr": "support pour les dispositifs découverts mais non installés",
+        "it": "supporto per dispositivi scoperti ma non installati",
+        "es": "soporte para dispositivos descubiertos pero no instalados",
+        "pl": "wsparcie dla odkrytych, ale nie zainstalowanych urządzeń",
+        "uk": "підтримка відкритих, але не встановлених пристроїв",
+        "zh-cn": "对发现但未安装装置的支助"
+      },
+      "1.3.3": {
+        "en": "bugfix",
+        "de": "Fehlerbehebung",
+        "ru": "багфикс",
+        "pt": "correção de erros",
+        "nl": "vuur",
+        "fr": "bugfix",
+        "it": "bugfix",
+        "es": "bugfix",
+        "pl": "trąbka",
+        "uk": "шемале",
+        "zh-cn": "b ugfix"
+      },
+      "1.3.2": {
+        "en": "ready for Admin 5 and NodeJS 16",
+        "de": "bereit für Admin 5 und NodeJS 16",
+        "ru": "готов к Admin 5 и NodeJS 16",
+        "pt": "pronto para Admin 5 e NodeJS 16",
+        "nl": "klaar voor Admin 5 en NodeJS 16",
+        "fr": "prêt pour Admin 5 et NodeJS 16",
+        "it": "pronto per Admin 5 e NodeJS 16",
+        "es": "listo para Admin 5 y NodeJS 16",
+        "pl": "admin 5 i NodeJS 16",
+        "uk": "готовий до Admin 5 і NodeJS 16",
+        "zh-cn": "准备为Admin 5和NodeJS 16"
+      }
     },
-    "native": {
-        "managerType": "eon",
-        "managerAddress": "",
-        "managerIntervall": 15
-    }
+    "titleLang": {
+      "en": "energymanager",
+      "de": "energiemanager",
+      "ru": "энергоменеджер",
+      "pt": "energética",
+      "nl": "energiemanager",
+      "fr": "energymanager",
+      "it": "energiamanager",
+      "es": "energymanager",
+      "pl": "energeza",
+      "uk": "енергетика",
+      "zh-cn": "能源manager"
+    },
+    "desc": {
+      "en": "energymanager for kiwigrid-powered devices. confirmed for E.ON Aura and Solarwatt MyReserve",
+      "de": "Energymanager für Geräte die mit Kiwigrid Netzwerk laufen. Bestätogt für E.ON Aura Stromspeicher und Solarwatt MyReserve",
+      "ru": "энергоменеджер для кивигридных устройств. подтверждено для E.ON Aura и Solarwatt MyReserve",
+      "pt": "energymanager para dispositivos alimentados por kiwigrid. confirmado para E.ON Aura e Solarwatt MyReserve",
+      "nl": "energiemanager voor kiwigrid-krachtige apparaten. Aura en Solarwatt MyReserve",
+      "fr": "energymanager for kiwigrid-powered devices. confirmé pour E.ON Aura et Solarwatt MyReserve",
+      "it": "energymanager per i dispositivi kiwigrid-powered. confermato per E.ON Aura e Solarwatt MyReserve",
+      "es": "gestor de energía para dispositivos con potencia de kiwigrid. confirmado por E.ON Aura y Solarwatt MyReserve",
+      "pl": "energimanager dla urządzeń napędowych kiwigrid. Potwierdził E.ON Aura i Solarwat MyReserve",
+      "uk": "енергоменеджер для kiwigrid-powered пристроїв. підтверджено для E.ON Aura та Solarwatt MyReserve",
+      "zh-cn": "基维格压发电装置的能源manager。 已确认为E.ON Aura和太阳能保护公司"
+    },
+    "authors": [
+      "Michael Schuster <development@unltd-networx.de>",
+      "iobroker-community-adapters <iobroker-community-adapters@gmx.de>",
+      "mcm1957 <mcm57@gmx.at>"
+    ],
+    "docs": {
+      "en": "docs/en/admin.md",
+      "de": "doks/de/admin.md",
+      "ru": "docs/en/admin.md",
+      "pt": "docs/en/admin.md",
+      "nl": "docs/en/admin",
+      "fr": "docs/en/admin.md",
+      "it": "docs/en/admin.md",
+      "es": "docs/en/admin.md",
+      "pl": "docs/en/admin.md",
+      "uk": "docs/en/admin.md",
+      "zh-cn": "docs/en/admin.md"
+    },
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "energymanager.png",
+    "materialize": true,
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.energymanager/master/admin/energymanager.png",
+    "keywords": [
+      "energymanager",
+      "GUI",
+      "EON Aura",
+      "Solarwatt MyReserver"
+    ],
+    "readme": "https://github.com/iobroker-community-adapters/ioBroker.energymanager/blob/master/README.md",
+    "loglevel": "info",
+    "tier": 2,
+    "type": "energy",
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.17"
+      }
+    ],
+    "messagebox": false,
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll"
+  },
+  "native": {
+    "managerType": "eon",
+    "managerAddress": "",
+    "managerIntervall": 15
+  }
 }
