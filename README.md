@@ -29,8 +29,6 @@ This adapter would not have been possible without the great work of Michael Schu
 	### **WORK IN PROGRESS**
 -->
 
-## Changelog
-
 ### **WORK IN PROGRESS**
 - (copilot) Adapter requires admin >= 7.7.22 now
 
