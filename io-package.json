@@ -126,19 +126,6 @@
       "iobroker-community-adapters <iobroker-community-adapters@gmx.de>",
       "mcm1957 <mcm57@gmx.at>"
     ],
-    "docs": {
-      "en": "docs/en/admin.md",
-      "de": "doks/de/admin.md",
-      "ru": "docs/en/admin.md",
-      "pt": "docs/en/admin.md",
-      "nl": "docs/en/admin",
-      "fr": "docs/en/admin.md",
-      "it": "docs/en/admin.md",
-      "es": "docs/en/admin.md",
-      "pl": "docs/en/admin.md",
-      "uk": "docs/en/admin.md",
-      "zh-cn": "docs/en/admin.md"
-    },
     "platform": "Javascript/Node.js",
     "mode": "daemon",
     "icon": "energymanager.png",
